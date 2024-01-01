@@ -10,9 +10,6 @@ permalink: /
 Interphases Lab is a research group at the [Department of Chemistry - Ångström Laboratory](http://www.physics.leidenuniv.nl) . Our aim is to understand, explore and design electrochemical interphases in rechargeable batteries. To this end, we develop and apply new operando interface characterization techniques (see [Research](research)). 
 
 
- **We are  looking for passionate new PhD students, Postdocs, and Master students to join the team** [(more info)]({{ site.url }}{{ site.baseurl }}/vacancies) **!**
-
-
 <figure class="fourth">
   <img src="{{ site.url }}{{ site.baseurl }}/images/logopic/Logo_Leiden.jpg" style="width: 210px">
   <img src="{{ site.url }}{{ site.baseurl }}/images/logopic/Logo_Nanofront.jpg" style="width: 110px">
