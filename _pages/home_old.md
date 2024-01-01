@@ -1,6 +1,6 @@
 ---
 title: "Interphases Lab - Home"
-layout: homelay
+layout: homelay---
 excerpt: "Interphases Lab at Uppsala University."
 sitemap: false
 permalink: /
