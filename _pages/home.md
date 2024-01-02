@@ -13,7 +13,7 @@ Interphases Lab is a research group at the [Department of Chemistry - Ångström
 this is commented out
 
   <div class="item">
-      <img src="{{ site.url }}{{ site.baseurl }}/images/group-photo.png" style="width: 500px">
+      <img src="{{ site.url }}{{ site.baseurl }}/images/group-photo.png" style="width: 700px">
   </div> 
 {% endcomment %}
 
