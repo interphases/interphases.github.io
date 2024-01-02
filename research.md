@@ -23,7 +23,4 @@ Here are some themes and techniques that we currently work on:
 ![]({{ site.url }}{{ site.baseurl }}/images/pubpic/ODACell.png){: style="width: 250px; float: left; margin: 0px  10px"}
 One of the  projects back ..
 
-
-![]({{ site.url }}{{ site.baseurl }}/images/respic/SciPost.png){: style="width: 70%; float: center; margin: 0px"}
-
 ### ... and more.
