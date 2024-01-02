@@ -20,7 +20,7 @@ Here are some themes and techniques that we currently work on:
 **Electrochemical Quartz Crystal Microbalanace (EQCM-D)** Weighing monolayers...? 
 
 **High-throughput Battery Research**.
-![]({{ site.url }}{{ site.baseurl }}/images/respic/SmartTip.png){: style="width: 250px; float: left; margin: 0px  10px"}
+![]({{ site.url }}{{ site.baseurl }}/images/pubpic/ODACell.png){: style="width: 250px; float: left; margin: 0px  10px"}
 One of the  projects back ..
 
 
