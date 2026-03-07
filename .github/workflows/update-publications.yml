@@ -1,0 +1,27 @@
+name: Update Publications from ORCID
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # Runs every Sunday at midnight
+  workflow_dispatch: # Allows you to run it manually for testing
+
+jobs:
+  update-records:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Fetch ORCID Works
+        uses: minaduek/orcid-to-markdown@v1.0.0 # A community-maintained action
+        with:
+          orcid_id: '0000-0000-0000-0000' # <--- REPLACE WITH YOUR ID
+          output_file: '_data/publications.yml'
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add _data/publications.yml
+          git commit -m "Auto-update publications from ORCID" || exit 0
+          git push
