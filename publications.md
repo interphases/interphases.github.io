@@ -3,6 +3,6 @@ layout: default
 title: Publications
 ---
 
-# Selected Publications
+# Publications
 
 {% bibliography %}
