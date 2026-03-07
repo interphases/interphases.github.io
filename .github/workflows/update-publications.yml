@@ -1,29 +1,4 @@
-name: Update Publications from ORCID
-
-on:
-  schedule:
-    - cron: '0 0 * * 0' 
-  workflow_dispatch: 
-
-jobs:
-  update-records:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-
-      - name: Install dependencies
-        run: pip install requests pyyaml
-
-      - name: Fetch ORCID Data
-        run: |
-          python - <<EOF
-          import requests
+ import requests
           import yaml
           import os
 
@@ -37,47 +12,44 @@ jobs:
               data = response.json()
               
               publications = []
-              # Ensure data is a dictionary and has 'group'
-              if not isinstance(data, dict):
-                  raise ValueError("API response is not a dictionary")
-                  
               groups = data.get('group') or []
               
               for group in groups:
-                  if not isinstance(group, dict): continue
-                  
                   summaries = group.get('work-summary') or []
                   if not summaries: continue
                   
                   work = summaries[0]
-                  if not isinstance(work, dict): continue
                   
-                  # Extract Title safely
-                  title_data = work.get('title') or {}
-                  title_val = title_data.get('title') or {}
-                  title = title_val.get('value', 'Untitled')
+                  # --- ACS AUTHOR EXTRACTION ---
+                  # We attempt to find the contributors list
+                  authors_list = []
+                  contributors_wrapper = work.get('contributors') or {}
+                  contributors = contributors_wrapper.get('contributor') or []
                   
-                  # Extract Year safely
-                  date_data = work.get('publication-date') or {}
-                  year_data = date_data.get('year') or {}
-                  year = year_data.get('value', 'N/A')
+                  for c in contributors:
+                      credit_name = c.get('credit-name') or {}
+                      name = credit_name.get('value')
+                      if name:
+                          authors_list.append(name)
                   
-                  # Extract Journal safely
-                  journal_data = work.get('journal-title') or {}
-                  journal = journal_data.get('value', 'N/A')
+                  # Format authors as "Name 1; Name 2; Name 3" per ACS
+                  authors_str = "; ".join(authors_list) if authors_list else "Authors not listed"
+
+                  # --- TITLE, YEAR, JOURNAL ---
+                  title = (work.get('title') or {}).get('title', {}).get('value', 'Untitled')
+                  year = (work.get('publication-date') or {}).get('year', {}).get('value', 'N/A')
+                  journal = (work.get('journal-title') or {}).get('value', 'N/A')
                   
-                  # Extract DOI/URL safely
+                  # --- DOI ---
                   url_val = ""
-                  ext_ids_wrapper = work.get('external-ids') or {}
-                  ext_ids = ext_ids_wrapper.get('external-id') or []
+                  ext_ids = (work.get('external-ids') or {}).get('external-id') or []
                   for eid in ext_ids:
-                      if not isinstance(eid, dict): continue
                       if eid.get('external-id-type') == 'doi':
-                          val = eid.get('external-id-value')
-                          url_val = f"https://doi.org/{val}"
+                          url_val = f"https://doi.org/{eid.get('external-id-value')}"
                           break
-                  
+
                   publications.append({
+                      'authors': str(authors_str),
                       'title': str(title),
                       'year': str(year),
                       'journal': str(journal),
@@ -85,24 +57,13 @@ jobs:
                   })
 
               if publications:
-                  # Robust sorting that handles 'N/A' years
                   publications.sort(key=lambda x: x['year'] if x['year'].isdigit() else '0000', reverse=True)
 
               os.makedirs('_data', exist_ok=True)
               with open('_data/publications.yml', 'w', encoding='utf-8') as f:
                   yaml.dump(publications, f, allow_unicode=True, sort_keys=False)
               
-              print(f"Success: Found {len(publications)} publications.")
+              print(f"Success: Processed {len(publications)} publications with authors.")
           except Exception as e:
-              print(f"Error during execution: {e}")
-              # We let it fail with 1 so you can see it in the UI if it breaks
+              print(f"Error: {e}")
               exit(1)
-          EOF
-
-      - name: Commit and Push changes
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add _data/publications.yml
-          git commit -m "Auto-update publications from ORCID 0000-0001-5653-0383" || exit 0
-          git push
