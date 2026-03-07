@@ -26,17 +26,18 @@ def crossref_to_bibtex(meta):
 
     def safe_get_year(meta):
         try:
-            return meta.get("issued", {}).get("date-parts", [[None]])[0][0]
+            year = meta.get("issued", {}).get("date-parts", [[None]])[0][0]
+            return str(year) if year else ""
         except Exception:
             return ""
 
     entry = {
-        "ENTRYTYPE": meta.get("type", "article"),
-        "ID": meta.get("DOI", "unknown").replace("/", "_"),
-        "title": safe_get_list(meta, "title"),
+        "ENTRYTYPE": str(meta.get("type", "article")),
+        "ID": str(meta.get("DOI", "unknown")).replace("/", "_"),
+        "title": str(safe_get_list(meta, "title")),
         "year": safe_get_year(meta),
-        "doi": meta.get("DOI", ""),
-        "journal": safe_get_list(meta, "container-title"),
+        "doi": str(meta.get("DOI", "")),
+        "journal": str(safe_get_list(meta, "container-title")),
     }
 
     # Authors
@@ -50,6 +51,11 @@ def crossref_to_bibtex(meta):
         if parts:
             authors.append(" ".join(parts))
     entry["author"] = " and ".join(authors)
+
+    # Ensure all fields are strings
+    for k, v in entry.items():
+        if not isinstance(v, str):
+            entry[k] = str(v)
 
     return entry
 
