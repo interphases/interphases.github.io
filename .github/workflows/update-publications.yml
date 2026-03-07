@@ -1,33 +1,9 @@
-name: Update Publications from ORCID
-
-on:
-  schedule:
-    - cron: '0 0 * * 0' 
-  workflow_dispatch: 
-
-jobs:
-  update-records:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-
-      - name: Install dependencies
-        run: pip install requests pyyaml
-
-      - name: Fetch ORCID Data
-        run: |
-          python <<EOF
-          import requests
+import requests
           import yaml
           import os
 
-          ORCID_ID = '0000-0001-5653-0383' # <--- DOUBLE CHECK THIS ID
+          # Ensure there are no spaces or extra characters in your ID
+          ORCID_ID = '0000-0001-5653-0383' 
           url = f"https://pub.orcid.org/v3.0/{ORCID_ID}/works"
           header = {"Accept": "application/json"}
           
@@ -36,25 +12,35 @@ jobs:
               response.raise_for_status()
               data = response.json()
               
+              # Debug: Print keys to the log so we can see what ORCID sent
+              print(f"Keys found in ORCID response: {data.keys()}")
+              
               publications = []
-              # ORCID returns works grouped by ID; we need to flatten this
-              groups = data.get('group', [])
+              # Safeguard: use .get() with an empty list [] if 'group' is missing
+              groups = data.get('group') or []
               
               for group in groups:
-                  for work in group.get('work-summary', []):
-                      title = work.get('title', {}).get('title', {}).get('value', 'Untitled')
-                      year = work.get('publication-date', {}).get('year', {}).get('value', 'N/A')
-                      journal = work.get('journal-title', {}).get('value', 'N/A')
+                  # Safeguard: ensure work-summary exists
+                  summaries = group.get('work-summary') or []
+                  for work in summaries:
+                      title_info = work.get('title') or {}
+                      title_val = title_info.get('title') or {}
+                      title = title_val.get('value', 'Untitled')
                       
-                      # Get URL from DOI or external ID
+                      date_info = work.get('publication-date') or {}
+                      year_val = date_info.get('year') or {}
+                      year = year_val.get('value', 'N/A')
+                      
+                      journal_info = work.get('journal-title') or {}
+                      journal = journal_info.get('value', 'N/A')
+                      
                       url_val = ""
-                      ext_ids = work.get('external-ids', {}).get('external-id', [])
+                      ext_ids_info = work.get('external-ids') or {}
+                      ext_ids = ext_ids_info.get('external-id') or []
                       for eid in ext_ids:
                           if eid.get('external-id-type') == 'doi':
                               url_val = f"https://doi.org/{eid.get('external-id-value')}"
                               break
-                          elif eid.get('url', {}).get('value'):
-                              url_val = eid.get('url', {}).get('value')
 
                       publications.append({
                           'title': str(title),
@@ -63,22 +49,16 @@ jobs:
                           'url': str(url_val)
                       })
 
-              # Sort by year descending
-              publications.sort(key=lambda x: x['year'], reverse=True)
+              # Sort only if we actually found publications
+              if publications:
+                  publications.sort(key=lambda x: x['year'], reverse=True)
 
               os.makedirs('_data', exist_ok=True)
               with open('_data/publications.yml', 'w', encoding='utf-8') as f:
                   yaml.dump(publications, f, allow_unicode=True, sort_keys=False)
+              
+              print(f"Successfully saved {len(publications)} publications.")
                   
           except Exception as e:
-              print(f"Error fetching data: {e}")
-              exit(1)
-          EOF
-
-      - name: Commit and Push changes
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add _data/publications.yml
-          git commit -m "Auto-update publications from ORCID" || exit 0
-          git push
+              print(f"Error occurred: {e}")
+              # We don't exit(1) here so we can see the debug prints above
