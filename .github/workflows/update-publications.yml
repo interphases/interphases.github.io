@@ -15,7 +15,7 @@ jobs:
       - name: Fetch ORCID Works
         uses: minaduek/orcid-to-markdown@v1.0.0 # A community-maintained action
         with:
-          orcid_id: '0000-0000-0000-0000' # <--- REPLACE WITH YOUR ID
+          orcid_id: '0000-0001-5653-0383' # <--- REPLACE WITH YOUR ID
           output_file: '_data/publications.yml'
 
       - name: Commit and Push changes
