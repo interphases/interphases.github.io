@@ -1,9 +1,33 @@
-import requests
+name: Update Publications from ORCID
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' 
+  workflow_dispatch: 
+
+jobs:
+  update-records:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install requests pyyaml
+
+      - name: Fetch ORCID Data
+        run: |
+          python - <<EOF
+          import requests
           import yaml
           import os
 
-          # Ensure there are no spaces or extra characters in your ID
-          ORCID_ID = '0000-0001-5653-0383' 
+          ORCID_ID = '0000-0001-5653-0383'
           url = f"https://pub.orcid.org/v3.0/{ORCID_ID}/works"
           header = {"Accept": "application/json"}
           
@@ -12,53 +36,63 @@ import requests
               response.raise_for_status()
               data = response.json()
               
-              # Debug: Print keys to the log so we can see what ORCID sent
-              print(f"Keys found in ORCID response: {data.keys()}")
-              
               publications = []
-              # Safeguard: use .get() with an empty list [] if 'group' is missing
               groups = data.get('group') or []
               
               for group in groups:
-                  # Safeguard: ensure work-summary exists
+                  # Get the first summary in the group
                   summaries = group.get('work-summary') or []
-                  for work in summaries:
-                      title_info = work.get('title') or {}
-                      title_val = title_info.get('title') or {}
-                      title = title_val.get('value', 'Untitled')
-                      
-                      date_info = work.get('publication-date') or {}
-                      year_val = date_info.get('year') or {}
-                      year = year_val.get('value', 'N/A')
-                      
-                      journal_info = work.get('journal-title') or {}
-                      journal = journal_info.get('value', 'N/A')
-                      
-                      url_val = ""
-                      ext_ids_info = work.get('external-ids') or {}
-                      ext_ids = ext_ids_info.get('external-id') or []
-                      for eid in ext_ids:
-                          if eid.get('external-id-type') == 'doi':
-                              url_val = f"https://doi.org/{eid.get('external-id-value')}"
-                              break
+                  if not summaries:
+                      continue
+                  
+                  work = summaries[0]
+                  
+                  # Extract Title
+                  title = work.get('title', {}).get('title', {}).get('value', 'Untitled')
+                  
+                  # Extract Year
+                  year = work.get('publication-date', {}).get('year', {}).get('value', 'N/A')
+                  
+                  # Extract Journal/Source
+                  journal = work.get('journal-title', {}).get('value', 'N/A')
+                  
+                  # Extract DOI/URL
+                  url_val = ""
+                  ext_ids = work.get('external-ids', {}).get('external-id') or []
+                  for eid in ext_ids:
+                      if eid.get('external-id-type') == 'doi':
+                          val = eid.get('external-id-value')
+                          url_val = f"https://doi.org/{val}"
+                          break
+                      elif eid.get('external-id-url', {}).get('value'):
+                          url_val = eid.get('external-id-url', {}).get('value')
 
-                      publications.append({
-                          'title': str(title),
-                          'year': str(year),
-                          'journal': str(journal),
-                          'url': str(url_val)
-                      })
+                  publications.append({
+                      'title': str(title),
+                      'year': str(year),
+                      'journal': str(journal),
+                      'url': str(url_val)
+                  })
 
-              # Sort only if we actually found publications
+              # Sort by year descending
               if publications:
                   publications.sort(key=lambda x: x['year'], reverse=True)
 
+              # Ensure directory exists and save
               os.makedirs('_data', exist_ok=True)
               with open('_data/publications.yml', 'w', encoding='utf-8') as f:
                   yaml.dump(publications, f, allow_unicode=True, sort_keys=False)
               
-              print(f"Successfully saved {len(publications)} publications.")
-                  
+              print(f"Success: Found and saved {len(publications)} publications.")
           except Exception as e:
-              print(f"Error occurred: {e}")
-              # We don't exit(1) here so we can see the debug prints above
+              print(f"Error during execution: {e}")
+              exit(1)
+          EOF
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add _data/publications.yml
+          git commit -m "Auto-update publications from ORCID 0000-0001-5653-0383" || exit 0
+          git push
