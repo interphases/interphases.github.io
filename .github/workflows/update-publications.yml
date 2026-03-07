@@ -42,30 +42,35 @@ jobs:
               for group in groups:
                   summaries = group.get('work-summary') or []
                   if not summaries: continue
-                  
                   work = summaries[0]
                   
-                  # --- ACS AUTHOR EXTRACTION ---
-                  # We attempt to find the contributors list
+                  # --- IMPROVED AUTHOR EXTRACTION ---
                   authors_list = []
-                  contributors_wrapper = work.get('contributors') or {}
-                  contributors = contributors_wrapper.get('contributor') or []
+                  # ORCID stores contributors in a specific nested path
+                  contribs_container = work.get('contributors') or {}
+                  contribs_list = contribs_container.get('contributor') or []
                   
-                  for c in contributors:
-                      credit_name = c.get('credit-name') or {}
-                      name = credit_name.get('value')
+                  for c in contribs_list:
+                      # Try 'credit-name', then 'path', then fallback to 'Unknown'
+                      name_obj = c.get('credit-name') or {}
+                      name = name_obj.get('value')
+                      
+                      if not name:
+                          # Sometimes it's stored in the 'contributor-orcid' label
+                          name = c.get('contributor-orcid', {}).get('path')
+                          
                       if name:
                           authors_list.append(name)
                   
-                  # Format authors as "Name 1; Name 2; Name 3" per ACS
-                  authors_str = "; ".join(authors_list) if authors_list else "Authors not listed"
+                  # ACS style uses semicolons to separate authors
+                  authors_str = "; ".join(authors_list) if authors_list else "Author List Unavailable"
 
                   # --- TITLE, YEAR, JOURNAL ---
                   title = (work.get('title') or {}).get('title', {}).get('value', 'Untitled')
                   year = (work.get('publication-date') or {}).get('year', {}).get('value', 'N/A')
                   journal = (work.get('journal-title') or {}).get('value', 'N/A')
                   
-                  # --- DOI ---
+                  # --- DOI/URL ---
                   url_val = ""
                   ext_ids = (work.get('external-ids') or {}).get('external-id') or []
                   for eid in ext_ids:
@@ -88,7 +93,7 @@ jobs:
               with open('_data/publications.yml', 'w', encoding='utf-8') as f:
                   yaml.dump(publications, f, allow_unicode=True, sort_keys=False)
               
-              print(f"Success: Processed {len(publications)} publications with authors.")
+              print(f"Success: Processed {len(publications)} publications.")
           except Exception as e:
               print(f"Error: {e}")
               exit(1)
