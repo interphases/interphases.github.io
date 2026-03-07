@@ -2,8 +2,8 @@ name: Update Publications from ORCID
 
 on:
   schedule:
-    - cron: '0 0 * * 0' # Runs every Sunday at midnight
-  workflow_dispatch: # Allows you to run it manually for testing
+    - cron: '0 0 * * 0' 
+  workflow_dispatch: 
 
 jobs:
   update-records:
@@ -12,11 +12,53 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Fetch ORCID Works
-        uses: minaduek/orcid-to-markdown@v1.0.0 # A community-maintained action
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          orcid_id: '0000-0001-5653-0383' # <--- REPLACE WITH YOUR ID
-          output_file: '_data/publications.yml'
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install requests pyyaml
+
+      - name: Fetch ORCID Data
+        run: |
+          python <<EOF
+          import requests
+          import yaml
+          import os
+
+          ORCID_ID = '0000-0001-5653-0383' # <--- REPLACE WITH YOUR ID
+          url = f"https://pub.orcid.org/v3.0/{ORCID_ID}/works"
+          header = {"Accept": "application/json"}
+          
+          response = requests.get(url, headers=header)
+          data = response.json()
+          
+          publications = []
+          for work in data.get('group', []):
+              summary = work.get('work-summary', [{}])[0]
+              title = summary.get('title', {}).get('title', {}).get('value', 'No Title')
+              year = summary.get('publication-date', {}).get('year', {}).get('value', 'N/A')
+              journal = summary.get('journal-title', {}).get('value', 'N/A')
+              
+              # Try to get a DOI/URL
+              external_ids = summary.get('external-ids', {}).get('external-id', [])
+              url_val = ""
+              for eid in external_ids:
+                  if eid.get('external-id-type') == 'doi':
+                      url_val = f"https://doi.org/{eid.get('external-id-value')}"
+
+              publications.append({
+                  'title': title,
+                  'year': year,
+                  'journal': journal,
+                  'url': url_val
+              })
+
+          os.makedirs('_data', exist_ok=True)
+          with open('_data/publications.yml', 'w') as f:
+              yaml.dump(publications, f, sort_keys=False)
+          EOF
 
       - name: Commit and Push changes
         run: |
