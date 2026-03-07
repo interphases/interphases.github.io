@@ -1,4 +1,4 @@
-name: Update Publications from ORCID
+name: Update Publications from Google Scholar
 
 on:
   schedule:
@@ -6,107 +6,56 @@ on:
   workflow_dispatch: 
 
 jobs:
-  update-records:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
+          python-version: '3.10'
 
-      - name: Install dependencies
-        run: pip install requests pyyaml
+      - name: Install scholarly
+        run: pip install scholarly pyyaml
 
-      - name: Fetch ORCID Data
+      - name: Fetch Scholar Data
         run: |
           python - <<EOF
-          import requests
+          from scholarly import scholarly
           import yaml
           import os
 
-          ORCID_ID = '0000-0001-5653-0383'
-          url = f"https://pub.orcid.org/v3.0/{ORCID_ID}/works"
-          header = {"Accept": "application/json"}
+          # Replace with your actual Google Scholar ID (the string in your profile URL)
+          SCHOLAR_ID = 'ErU9OB4AAAAJ' 
           
-          try:
-              response = requests.get(url, headers=header)
-              response.raise_for_status()
-              data = response.json()
+          author = scholarly.search_author_id(SCHOLAR_ID)
+          scholarly.fill(author, sections=['publications'])
+          
+          pubs = []
+          for pub in author['publications']:
+              # Fill the specific publication to get full details (authors/journal)
+              scholarly.fill(pub)
+              bib = pub['bib']
               
-              publications = []
-              groups = data.get('group') or []
-              
-              for group in groups:
-                  summaries = group.get('work-summary') or []
-                  if not summaries: continue
-                  work = summaries[0]
-                  
-                  # --- DEEP AUTHOR EXTRACTION ---
-                  authors_list = []
-                  contribs_container = work.get('contributors') or {}
-                  contribs_list = contribs_container.get('contributor') or []
-                  
-                  for c in contribs_list:
-                      name = None
-                      # Check 1: Credit Name (The most common field)
-                      if c.get('credit-name'):
-                          name = c.get('credit-name').get('value')
-                      
-                      # Check 2: Reconstruct from First/Last name if Credit Name is empty
-                      if not name and c.get('contributor-attributes'):
-                          # Some records store them here in deeper sub-keys
-                          pass 
+              pubs.append({
+                  'title': bib.get('title', 'Untitled'),
+                  'authors': bib.get('author', 'Unknown Authors'),
+                  'journal': bib.get('journal', bib.get('publisher', 'N/A')),
+                  'year': bib.get('pub_year', 'N/A'),
+                  'url': pub.get('pub_url', '')
+              })
 
-                      if name:
-                          authors_list.append(name)
-                  
-                  # ACS Joiner
-                  if not authors_list:
-                      authors_str = "Author list unavailable in ORCID summary"
-                  else:
-                      authors_str = "; ".join(authors_list)
-
-                  # --- METADATA ---
-                  title = (work.get('title') or {}).get('title', {}).get('value', 'Untitled')
-                  year = (work.get('publication-date') or {}).get('year', {}).get('value', 'N/A')
-                  journal = (work.get('journal-title') or {}).get('value', 'N/A')
-                  
-                  # --- DOI ---
-                  url_val = ""
-                  ext_ids = (work.get('external-ids') or {}).get('external-id') or []
-                  for eid in ext_ids:
-                      if eid.get('external-id-type') == 'doi':
-                          url_val = f"https://doi.org/{eid.get('external-id-value')}"
-                          break
-
-                  publications.append({
-                      'authors': str(authors_str),
-                      'title': str(title),
-                      'year': str(year),
-                      'journal': str(journal),
-                      'url': str(url_val)
-                  })
-
-              if publications:
-                  publications.sort(key=lambda x: x['year'] if x['year'].isdigit() else '0000', reverse=True)
-
-              os.makedirs('_data', exist_ok=True)
-              with open('_data/publications.yml', 'w', encoding='utf-8') as f:
-                  yaml.dump(publications, f, allow_unicode=True, sort_keys=False)
-              
-              print(f"Success: Processed {len(publications)} publications.")
-          except Exception as e:
-              print(f"Error: {e}")
-              exit(1)
+          os.makedirs('_data', exist_ok=True)
+          with open('_data/publications.yml', 'w', encoding='utf-8') as f:
+              yaml.dump(pubs, f, allow_unicode=True, sort_keys=False)
           EOF
 
-      - name: Commit and Push changes
+      - name: Commit and Push
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add _data/publications.yml
-          git commit -m "Auto-update publications from ORCID 0000-0001-5653-0383" || exit 0
+          git commit -m "Auto-update from Scholar" || exit 0
           git push
