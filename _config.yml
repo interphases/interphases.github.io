@@ -1,3 +1,11 @@
 title: InterphasesTeam
 description: Researching the future of interphases.
 baseurl: "" # Leave empty if this is your username.github.io repo
+
+plugins:
+  - jekyll-scholar
+
+scholar:
+  style: american-chemical-society
+  source: ./
+  bibliography: publications.bib
