@@ -1,61 +1,34 @@
-name: Update Publications from Google Scholar
+name: Update Google Scholar Publications
 
 on:
   schedule:
-    - cron: '0 0 * * 0' 
-  workflow_dispatch: 
+    - cron: "0 3 * * *"   # runs every day at 03:00
+  workflow_dispatch:
 
 jobs:
-  build:
+  update-publications:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: "3.10"
 
-      - name: Install scholarly
-        run: pip install scholarly pyyaml
+      - name: Install dependencies
+        run: pip install scholarly
 
-      - name: Fetch Scholar Data
+      - name: Fetch publications from Google Scholar
         run: |
-          python - <<EOF
-          from scholarly import scholarly
-          import yaml
-          import os
+          python fetch_scholar.py
 
-          # Replace with your actual Google Scholar ID (the string in your profile URL)
-          SCHOLAR_ID = 'ErU9OB4AAAAJ' 
-          
-          author = scholarly.search_author_id(SCHOLAR_ID)
-          scholarly.fill(author, sections=['publications'])
-          
-          pubs = []
-          for pub in author['publications']:
-              # Fill the specific publication to get full details (authors/journal)
-              scholarly.fill(pub)
-              bib = pub['bib']
-              
-              pubs.append({
-                  'title': bib.get('title', 'Untitled'),
-                  'authors': bib.get('author', 'Unknown Authors'),
-                  'journal': bib.get('journal', bib.get('publisher', 'N/A')),
-                  'year': bib.get('pub_year', 'N/A'),
-                  'url': pub.get('pub_url', '')
-              })
-
-          os.makedirs('_data', exist_ok=True)
-          with open('_data/publications.yml', 'w', encoding='utf-8') as f:
-              yaml.dump(pubs, f, allow_unicode=True, sort_keys=False)
-          EOF
-
-      - name: Commit and Push
+      - name: Commit updated BibTeX file
         run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add _data/publications.yml
-          git commit -m "Auto-update from Scholar" || exit 0
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git add publications.bib
+          git commit -m "Auto-update publications from Google Scholar" || echo "No changes to commit"
           git push
