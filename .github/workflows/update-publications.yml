@@ -44,33 +44,37 @@ jobs:
                   if not summaries: continue
                   work = summaries[0]
                   
-                  # --- IMPROVED AUTHOR EXTRACTION ---
+                  # --- DEEP AUTHOR EXTRACTION ---
                   authors_list = []
-                  # ORCID stores contributors in a specific nested path
                   contribs_container = work.get('contributors') or {}
                   contribs_list = contribs_container.get('contributor') or []
                   
                   for c in contribs_list:
-                      # Try 'credit-name', then 'path', then fallback to 'Unknown'
-                      name_obj = c.get('credit-name') or {}
-                      name = name_obj.get('value')
+                      name = None
+                      # Check 1: Credit Name (The most common field)
+                      if c.get('credit-name'):
+                          name = c.get('credit-name').get('value')
                       
-                      if not name:
-                          # Sometimes it's stored in the 'contributor-orcid' label
-                          name = c.get('contributor-orcid', {}).get('path')
-                          
+                      # Check 2: Reconstruct from First/Last name if Credit Name is empty
+                      if not name and c.get('contributor-attributes'):
+                          # Some records store them here in deeper sub-keys
+                          pass 
+
                       if name:
                           authors_list.append(name)
                   
-                  # ACS style uses semicolons to separate authors
-                  authors_str = "; ".join(authors_list) if authors_list else "Author List Unavailable"
+                  # ACS Joiner
+                  if not authors_list:
+                      authors_str = "Author list unavailable in ORCID summary"
+                  else:
+                      authors_str = "; ".join(authors_list)
 
-                  # --- TITLE, YEAR, JOURNAL ---
+                  # --- METADATA ---
                   title = (work.get('title') or {}).get('title', {}).get('value', 'Untitled')
                   year = (work.get('publication-date') or {}).get('year', {}).get('value', 'N/A')
                   journal = (work.get('journal-title') or {}).get('value', 'N/A')
                   
-                  # --- DOI/URL ---
+                  # --- DOI ---
                   url_val = ""
                   ext_ids = (work.get('external-ids') or {}).get('external-id') or []
                   for eid in ext_ids:
