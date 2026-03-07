@@ -1,8 +1,8 @@
-name: Update Google Scholar Publications
+name: Update Google Scholar Publications (SerpAPI)
 
 on:
   schedule:
-    - cron: "0 3 * * *"   # runs every day at 03:00
+    - cron: "0 3 * * *"   # daily at 03:00
   workflow_dispatch:
 
 jobs:
@@ -19,16 +19,17 @@ jobs:
           python-version: "3.10"
 
       - name: Install dependencies
-        run: pip install scholarly
+        run: pip install requests
 
-      - name: Fetch publications from Google Scholar
-        run: |
-          python fetch_scholar.py
+      - name: Fetch publications using SerpAPI
+        env:
+          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
+        run: python fetch_scholar_serpapi.py
 
       - name: Commit updated BibTeX file
         run: |
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
           git add publications.bib
-          git commit -m "Auto-update publications from Google Scholar" || echo "No changes to commit"
+          git commit -m "Auto-update publications from Google Scholar (SerpAPI)" || echo "No changes to commit"
           git push
