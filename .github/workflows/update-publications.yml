@@ -37,36 +37,46 @@ jobs:
               data = response.json()
               
               publications = []
+              # Ensure data is a dictionary and has 'group'
+              if not isinstance(data, dict):
+                  raise ValueError("API response is not a dictionary")
+                  
               groups = data.get('group') or []
               
               for group in groups:
-                  # Get the first summary in the group
+                  if not isinstance(group, dict): continue
+                  
                   summaries = group.get('work-summary') or []
-                  if not summaries:
-                      continue
+                  if not summaries: continue
                   
                   work = summaries[0]
+                  if not isinstance(work, dict): continue
                   
-                  # Extract Title
-                  title = work.get('title', {}).get('title', {}).get('value', 'Untitled')
+                  # Extract Title safely
+                  title_data = work.get('title') or {}
+                  title_val = title_data.get('title') or {}
+                  title = title_val.get('value', 'Untitled')
                   
-                  # Extract Year
-                  year = work.get('publication-date', {}).get('year', {}).get('value', 'N/A')
+                  # Extract Year safely
+                  date_data = work.get('publication-date') or {}
+                  year_data = date_data.get('year') or {}
+                  year = year_data.get('value', 'N/A')
                   
-                  # Extract Journal/Source
-                  journal = work.get('journal-title', {}).get('value', 'N/A')
+                  # Extract Journal safely
+                  journal_data = work.get('journal-title') or {}
+                  journal = journal_data.get('value', 'N/A')
                   
-                  # Extract DOI/URL
+                  # Extract DOI/URL safely
                   url_val = ""
-                  ext_ids = work.get('external-ids', {}).get('external-id') or []
+                  ext_ids_wrapper = work.get('external-ids') or {}
+                  ext_ids = ext_ids_wrapper.get('external-id') or []
                   for eid in ext_ids:
+                      if not isinstance(eid, dict): continue
                       if eid.get('external-id-type') == 'doi':
                           val = eid.get('external-id-value')
                           url_val = f"https://doi.org/{val}"
                           break
-                      elif eid.get('external-id-url', {}).get('value'):
-                          url_val = eid.get('external-id-url', {}).get('value')
-
+                  
                   publications.append({
                       'title': str(title),
                       'year': str(year),
@@ -74,18 +84,18 @@ jobs:
                       'url': str(url_val)
                   })
 
-              # Sort by year descending
               if publications:
-                  publications.sort(key=lambda x: x['year'], reverse=True)
+                  # Robust sorting that handles 'N/A' years
+                  publications.sort(key=lambda x: x['year'] if x['year'].isdigit() else '0000', reverse=True)
 
-              # Ensure directory exists and save
               os.makedirs('_data', exist_ok=True)
               with open('_data/publications.yml', 'w', encoding='utf-8') as f:
                   yaml.dump(publications, f, allow_unicode=True, sort_keys=False)
               
-              print(f"Success: Found and saved {len(publications)} publications.")
+              print(f"Success: Found {len(publications)} publications.")
           except Exception as e:
               print(f"Error during execution: {e}")
+              # We let it fail with 1 so you can see it in the UI if it breaks
               exit(1)
           EOF
 
