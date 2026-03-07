@@ -27,37 +27,52 @@ jobs:
           import yaml
           import os
 
-          ORCID_ID = '0000-0001-5653-0383' # <--- REPLACE WITH YOUR ID
+          ORCID_ID = '0000-0001-5653-0383' # <--- DOUBLE CHECK THIS ID
           url = f"https://pub.orcid.org/v3.0/{ORCID_ID}/works"
           header = {"Accept": "application/json"}
           
-          response = requests.get(url, headers=header)
-          data = response.json()
-          
-          publications = []
-          for work in data.get('group', []):
-              summary = work.get('work-summary', [{}])[0]
-              title = summary.get('title', {}).get('title', {}).get('value', 'No Title')
-              year = summary.get('publication-date', {}).get('year', {}).get('value', 'N/A')
-              journal = summary.get('journal-title', {}).get('value', 'N/A')
+          try:
+              response = requests.get(url, headers=header)
+              response.raise_for_status()
+              data = response.json()
               
-              # Try to get a DOI/URL
-              external_ids = summary.get('external-ids', {}).get('external-id', [])
-              url_val = ""
-              for eid in external_ids:
-                  if eid.get('external-id-type') == 'doi':
-                      url_val = f"https://doi.org/{eid.get('external-id-value')}"
+              publications = []
+              # ORCID returns works grouped by ID; we need to flatten this
+              groups = data.get('group', [])
+              
+              for group in groups:
+                  for work in group.get('work-summary', []):
+                      title = work.get('title', {}).get('title', {}).get('value', 'Untitled')
+                      year = work.get('publication-date', {}).get('year', {}).get('value', 'N/A')
+                      journal = work.get('journal-title', {}).get('value', 'N/A')
+                      
+                      # Get URL from DOI or external ID
+                      url_val = ""
+                      ext_ids = work.get('external-ids', {}).get('external-id', [])
+                      for eid in ext_ids:
+                          if eid.get('external-id-type') == 'doi':
+                              url_val = f"https://doi.org/{eid.get('external-id-value')}"
+                              break
+                          elif eid.get('url', {}).get('value'):
+                              url_val = eid.get('url', {}).get('value')
 
-              publications.append({
-                  'title': title,
-                  'year': year,
-                  'journal': journal,
-                  'url': url_val
-              })
+                      publications.append({
+                          'title': str(title),
+                          'year': str(year),
+                          'journal': str(journal),
+                          'url': str(url_val)
+                      })
 
-          os.makedirs('_data', exist_ok=True)
-          with open('_data/publications.yml', 'w') as f:
-              yaml.dump(publications, f, sort_keys=False)
+              # Sort by year descending
+              publications.sort(key=lambda x: x['year'], reverse=True)
+
+              os.makedirs('_data', exist_ok=True)
+              with open('_data/publications.yml', 'w', encoding='utf-8') as f:
+                  yaml.dump(publications, f, allow_unicode=True, sort_keys=False)
+                  
+          except Exception as e:
+              print(f"Error fetching data: {e}")
+              exit(1)
           EOF
 
       - name: Commit and Push changes
