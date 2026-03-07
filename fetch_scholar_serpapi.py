@@ -6,7 +6,6 @@ SCHOLAR_ID = "ErU9OB4AAAAJ"
 API_KEY = os.environ["SERPAPI_KEY"]
 
 def fetch_publications():
-    """Fetch list of publications from the author profile."""
     url = "https://serpapi.com/search"
     params = {
         "engine": "google_scholar_author",
@@ -16,31 +15,33 @@ def fetch_publications():
     }
 
     print("Fetching publications from SerpAPI…")
-    data = requests.get(url, params=params).json()
+    data = requests.get(url, params=params, timeout=20).json()
 
     pubs = data.get("articles", [])
     print(f"Found {len(pubs)} publications")
 
     return pubs
 
-def fetch_bibtex_from_article(citation_id):
-    """Fetch BibTeX by loading the article page and extracting the BibTeX link."""
+def fetch_bibtex(citation_id):
+    """Fetch BibTeX using the official google_scholar_cite engine."""
     url = "https://serpapi.com/search"
     params = {
-        "engine": "google_scholar",
-        "q": f"citation_id:{citation_id}",
+        "engine": "google_scholar_cite",
+        "q": citation_id,
         "api_key": API_KEY
     }
 
-    data = requests.get(url, params=params).json()
+    data = requests.get(url, params=params, timeout=20).json()
 
-    # SerpAPI returns citation formats under "inline_links"
     try:
-        bibtex_url = data["inline_links"]["citation"]["bibtex"]
-        bibtex = requests.get(bibtex_url).text.strip()
-        return bibtex
+        formats = data["citations"]
+        for fmt in formats:
+            if fmt["title"].lower() == "bibtex":
+                return fmt["snippet"]
     except Exception:
         return None
+
+    return None
 
 def main():
     pubs = fetch_publications()
@@ -52,14 +53,14 @@ def main():
             continue
 
         print(f"Fetching BibTeX for {citation_id}…")
-        bib = fetch_bibtex_from_article(citation_id)
+        bib = fetch_bibtex(citation_id)
 
         if bib:
             bib_entries.append(bib)
         else:
             print(f"  → No BibTeX found for {citation_id}")
 
-        time.sleep(1)  # be polite to the API
+        time.sleep(1)  # avoid rate limits
 
     with open("publications.bib", "w") as f:
         for entry in bib_entries:
