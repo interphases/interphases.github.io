@@ -2,10 +2,10 @@ import requests
 import os
 import time
 
-print("API key loaded:", bool(API_KEY))
 
 SCHOLAR_ID = "ErU9OB4AAAAJ"
 API_KEY = os.environ["SERPAPI_KEY"]
+print("API key loaded:", bool(API_KEY))
 
 def serpapi_request(params):
     """Wrapper with timeout and error handling."""
