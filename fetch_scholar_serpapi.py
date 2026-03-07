@@ -10,7 +10,7 @@ def fetch_publications():
         "engine": "google_scholar_author",
         "author_id": SCHOLAR_ID,
         "api_key": API_KEY,
-        "num": "100"  # fetch up to 100 publications
+        "num": "100"
     }
 
     print("Fetching publications from SerpAPI…")
@@ -21,29 +21,30 @@ def fetch_publications():
 
     return pubs
 
-def fetch_bibtex(pub_id):
-    url = "https://serpapi.com/search"
-    params = {
-        "engine": "google_scholar_bibtex",
-        "q": pub_id,
-        "api_key": API_KEY
-    }
-    r = requests.get(url, params=params)
+def fetch_bibtex(citation_url):
+    """Fetch BibTeX using the citation link provided by SerpAPI."""
+    r = requests.get(citation_url)
     return r.text.strip()
 
 def main():
     pubs = fetch_publications()
 
     bib_entries = []
+
     for pub in pubs:
-        pub_id = pub.get("citation_id")
-        if not pub_id:
+        citation = pub.get("citation")
+        if not citation:
             continue
+
+        bibtex_url = citation.get("bibtex")
+        if not bibtex_url:
+            continue
+
         try:
-            bib = fetch_bibtex(pub_id)
+            bib = fetch_bibtex(bibtex_url)
             bib_entries.append(bib)
         except Exception as e:
-            print(f"Failed to fetch BibTeX for {pub_id}: {e}")
+            print(f"Failed to fetch BibTeX: {e}")
 
     with open("publications.bib", "w") as f:
         for entry in bib_entries:
