@@ -19,24 +19,36 @@ def fetch_crossref_metadata(doi):
     return r.json()["message"]
 
 def crossref_to_bibtex(meta):
+    # Safe helpers
+    def safe_get_list(meta, key):
+        val = meta.get(key, [])
+        return val[0] if isinstance(val, list) and val else ""
+
+    def safe_get_year(meta):
+        try:
+            return meta.get("issued", {}).get("date-parts", [[None]])[0][0]
+        except Exception:
+            return ""
+
     entry = {
         "ENTRYTYPE": meta.get("type", "article"),
         "ID": meta.get("DOI", "unknown").replace("/", "_"),
-        "title": meta.get("title", [""])[0],
-        "year": meta.get("issued", {}).get("date-parts", [[None]])[0][0],
+        "title": safe_get_list(meta, "title"),
+        "year": safe_get_year(meta),
         "doi": meta.get("DOI", ""),
-        "journal": meta.get("container-title", [""])[0],
+        "journal": safe_get_list(meta, "container-title"),
     }
 
     # Authors
     authors = []
     for a in meta.get("author", []):
-        name = ""
+        parts = []
         if "given" in a:
-            name += a["given"]
+            parts.append(a["given"])
         if "family" in a:
-            name += " " + a["family"]
-        authors.append(name.strip())
+            parts.append(a["family"])
+        if parts:
+            authors.append(" ".join(parts))
     entry["author"] = " and ".join(authors)
 
     return entry
