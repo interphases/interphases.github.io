@@ -3,7 +3,6 @@ from bibtexparser.bparser import BibTexParser
 from bibtexparser.customization import homogenize_latex_encoding
 
 def acs_format(entry):
-    """Format a BibTeX entry in ACS style."""
     authors = entry.get("author", "").split(" and ")
     authors_formatted = ", ".join(authors)
 
@@ -15,9 +14,13 @@ def acs_format(entry):
     parts = [
         f"**{authors_formatted}**.",
         f"*{title}*.",
-        f"_{journal}_",
-        f"**{year}**.",
     ]
+
+    if journal:
+        parts.append(f"_{journal}_")
+
+    if year:
+        parts.append(f"**{year}**.")
 
     if doi:
         parts.append(f"[DOI: {doi}](https://doi.org/{doi})")
@@ -26,18 +29,18 @@ def acs_format(entry):
 
 def main():
     with open("publications.bib") as bibtex_file:
-        parser = BibTexParser()
+        parser = BibTexParser(common_strings=True)
         parser.customization = homogenize_latex_encoding
+        parser.ignore_nonstandard_types = False  # ← this is the important line
         bib = bibtexparser.load(bibtex_file, parser=parser)
 
-    # Sort by year descending
     entries = sorted(
         bib.entries,
-        key=lambda x: x.get("year", "0"),
-        reverse=True
+        key=lambda x: str(x.get("year", "0")),
+        reverse=True,
     )
 
-    lines = ["# Publications\n"]
+    lines = ["# Publications", ""]
 
     for entry in entries:
         lines.append(f"- {acs_format(entry)}")
@@ -45,7 +48,7 @@ def main():
     with open("publications.md", "w") as f:
         f.write("\n".join(lines))
 
-    print("Updated publications.md")
+    print(f"Updated publications.md with {len(entries)} entries")
 
 if __name__ == "__main__":
     main()
