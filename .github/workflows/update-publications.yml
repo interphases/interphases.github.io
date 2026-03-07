@@ -1,4 +1,29 @@
- import requests
+name: Update Publications from ORCID
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' 
+  workflow_dispatch: 
+
+jobs:
+  update-records:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install requests pyyaml
+
+      - name: Fetch ORCID Data
+        run: |
+          python - <<EOF
+          import requests
           import yaml
           import os
 
@@ -67,3 +92,12 @@
           except Exception as e:
               print(f"Error: {e}")
               exit(1)
+          EOF
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add _data/publications.yml
+          git commit -m "Auto-update publications from ORCID 0000-0001-5653-0383" || exit 0
+          git push
