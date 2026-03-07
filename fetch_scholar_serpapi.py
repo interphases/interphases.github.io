@@ -1,10 +1,12 @@
 import requests
 import os
+import time
 
 SCHOLAR_ID = "ErU9OB4AAAAJ"
 API_KEY = os.environ["SERPAPI_KEY"]
 
 def fetch_publications():
+    """Fetch list of publications from the author profile."""
     url = "https://serpapi.com/search"
     params = {
         "engine": "google_scholar_author",
@@ -21,30 +23,43 @@ def fetch_publications():
 
     return pubs
 
-def fetch_bibtex(citation_url):
-    """Fetch BibTeX using the citation link provided by SerpAPI."""
-    r = requests.get(citation_url)
-    return r.text.strip()
+def fetch_bibtex_from_article(citation_id):
+    """Fetch BibTeX by loading the article page and extracting the BibTeX link."""
+    url = "https://serpapi.com/search"
+    params = {
+        "engine": "google_scholar",
+        "q": f"citation_id:{citation_id}",
+        "api_key": API_KEY
+    }
+
+    data = requests.get(url, params=params).json()
+
+    # SerpAPI returns citation formats under "inline_links"
+    try:
+        bibtex_url = data["inline_links"]["citation"]["bibtex"]
+        bibtex = requests.get(bibtex_url).text.strip()
+        return bibtex
+    except Exception:
+        return None
 
 def main():
     pubs = fetch_publications()
-
     bib_entries = []
 
     for pub in pubs:
-        citation = pub.get("citation")
-        if not citation:
+        citation_id = pub.get("citation_id")
+        if not citation_id:
             continue
 
-        bibtex_url = citation.get("bibtex")
-        if not bibtex_url:
-            continue
+        print(f"Fetching BibTeX for {citation_id}…")
+        bib = fetch_bibtex_from_article(citation_id)
 
-        try:
-            bib = fetch_bibtex(bibtex_url)
+        if bib:
             bib_entries.append(bib)
-        except Exception as e:
-            print(f"Failed to fetch BibTeX: {e}")
+        else:
+            print(f"  → No BibTeX found for {citation_id}")
+
+        time.sleep(1)  # be polite to the API
 
     with open("publications.bib", "w") as f:
         for entry in bib_entries:
