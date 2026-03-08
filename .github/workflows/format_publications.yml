@@ -1,0 +1,34 @@
+name: Format Publications
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - publications.bib
+
+jobs:
+  format-publications:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: pip install bibtexparser
+
+      - name: Format publications into ACS style
+        run: python format_publications.py
+
+      - name: Commit updated publications.md
+        run: |
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git add publications.md
+          git commit -m "Auto-format publications.md" || echo "No changes"
+          git push
