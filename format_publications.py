@@ -40,6 +40,11 @@ def main():
         reverse=True,
     )
 
+    print(f"Loaded {len(bib.entries)} entries from publications.bib")
+    for e in bib.entries:
+        print(" -", e.get("ID"))
+
+
     lines = ["# Publications", ""]
 
     for entry in entries:
