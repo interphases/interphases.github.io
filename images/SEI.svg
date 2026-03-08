@@ -563,7 +563,7 @@
      xml:space="preserve"
      transform="scale(0.75)"
      id="text172"
-     style="font-size:13.3333px;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect172);fill:#000000;fill-opacity:1" />
+     style="font-size:13.3333px;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect172);display:inline;fill:#000000;fill-opacity:1" />
   <text
      xml:space="preserve"
      style="font-size:20px;writing-mode:lr-tb;direction:ltr;fill:#000000;fill-opacity:1;stroke-width:0.75"
@@ -694,58 +694,58 @@
   <text
      xml:space="preserve"
      style="font-size:14px;writing-mode:lr-tb;direction:ltr;fill:#000000;fill-opacity:1;stroke-width:0.75"
-     x="226.09457"
-     y="231.80565"
+     x="227.8495"
+     y="231.36691"
      id="text175"><tspan
        sodipodi:role="line"
        id="tspan175"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:14px;font-family:Arial;-inkscape-font-specification:'Arial Bold';stroke-width:0.75"
-       x="226.09457"
-       y="231.80565">+</tspan></text>
+       x="227.8495"
+       y="231.36691">+</tspan></text>
   <text
      xml:space="preserve"
      style="font-size:14px;writing-mode:lr-tb;direction:ltr;fill:#000000;fill-opacity:1;stroke-width:0.75"
-     x="245.48497"
+     x="246.80116"
      y="217.65973"
      id="text175-23"><tspan
        sodipodi:role="line"
        id="tspan175-3"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:14px;font-family:Arial;-inkscape-font-specification:'Arial Bold';stroke-width:0.75"
-       x="245.48497"
+       x="246.80116"
        y="217.65973">+</tspan></text>
   <text
      xml:space="preserve"
      style="font-size:14px;writing-mode:lr-tb;direction:ltr;fill:#000000;fill-opacity:1;stroke-width:0.75"
-     x="264.4429"
-     y="234.87253"
+     x="266.63657"
+     y="235.74998"
      id="text175-23-1"><tspan
        sodipodi:role="line"
        id="tspan175-3-1"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:14px;font-family:Arial;-inkscape-font-specification:'Arial Bold';stroke-width:0.75"
-       x="264.4429"
-       y="234.87253">+</tspan></text>
+       x="266.63657"
+       y="235.74998">+</tspan></text>
   <text
      xml:space="preserve"
      style="font-size:14px;writing-mode:lr-tb;direction:ltr;fill:#000000;fill-opacity:1;stroke-width:0.75"
-     x="379.89307"
-     y="214.37674"
+     x="381.20926"
+     y="214.81548"
      id="text175-2"><tspan
        sodipodi:role="line"
        id="tspan175-1"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:14px;font-family:Arial;-inkscape-font-specification:'Arial Bold';stroke-width:0.75"
-       x="379.89307"
-       y="214.37674">+</tspan></text>
+       x="381.20926"
+       y="214.81548">+</tspan></text>
   <text
      xml:space="preserve"
      style="font-size:14px;writing-mode:lr-tb;direction:ltr;fill:#000000;fill-opacity:1;stroke-width:0.75"
-     x="357.79364"
-     y="296.96973"
+     x="359.54855"
+     y="297.40845"
      id="text175-8"><tspan
        sodipodi:role="line"
        id="tspan175-5"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:14px;font-family:Arial;-inkscape-font-specification:'Arial Bold';stroke-width:0.75"
-       x="357.79364"
-       y="296.96973">+</tspan></text>
+       x="359.54855"
+       y="297.40845">+</tspan></text>
   <path
      style="fill:#666666;fill-opacity:1;stroke-width:0.051705"
      d="m 185.36593,466.97756 -0.14525,-0.1516 0.23804,-0.35806 c 0.27729,-0.41711 1.59509,-1.94731 1.97204,-2.2899 0.14219,-0.12923 0.37486,-0.32607 0.51705,-0.43742 0.38361,-0.3004 1.4282,-1.22409 1.40761,-1.24468 -0.01,-0.01 -1.88944,0.002 -4.17696,0.0253 -2.43197,0.0252 -4.1967,0.024 -4.24961,-0.003 -0.13027,-0.0664 -0.11466,-0.28425 0.0259,-0.36059 0.0872,-0.0474 1.17297,-0.0733 4.33029,-0.10339 2.31768,-0.0221 4.28882,-0.0536 4.38031,-0.0699 0.15531,-0.0278 0.16427,-0.0407 0.13518,-0.19574 -0.089,-0.47415 -0.58988,-1.19779 -1.23578,-1.78537 -0.41698,-0.37933 -1.80605,-1.33083 -2.41634,-1.65518 -0.67838,-0.36053 -0.94022,-0.57487 -1.3295,-1.08831 -0.19863,-0.26199 -0.36115,-0.50572 -0.36115,-0.54163 0,-0.0359 0.0312,-0.10791 0.0693,-0.16 0.0651,-0.089 0.0954,-0.0773 0.50412,0.19429 0.23918,0.15895 0.72572,0.53305 1.08119,0.83134 0.45311,0.38023 0.74678,0.58465 0.9824,0.68383 0.95002,0.39991 3.39931,1.48598 3.75899,1.66682 0.22646,0.11386 0.63469,0.2795 0.90718,0.36808 0.58439,0.18998 0.80707,0.32641 0.93263,0.57142 0.16957,0.33087 -0.0213,0.81236 -0.54463,1.37367 -0.33201,0.35612 -0.38245,0.46047 -0.12927,0.26741 0.0924,-0.0705 0.32411,-0.23721 0.51486,-0.37053 0.3403,-0.23785 0.3497,-0.24091 0.50084,-0.16275 0.0847,0.0438 0.16816,0.1025 0.18542,0.13044 0.0787,0.12741 -0.6524,0.75113 -1.21404,1.03566 -0.13265,0.0672 -0.56611,0.44409 -1.00825,0.87666 -0.76451,0.74796 -1.15952,1.05914 -1.71604,1.35189 -0.32115,0.16893 -0.48143,0.14058 -0.48143,-0.0852 0,-0.0996 0.066,-0.16987 0.29731,-0.31627 0.62867,-0.39793 0.84362,-0.54822 0.81911,-0.57273 -0.014,-0.014 -0.16037,0.0293 -0.32532,0.0961 -0.23185,0.0939 -0.4742,0.28001 -1.06814,0.82015 -1.1754,1.06891 -1.68376,1.40195 -2.48918,1.63069 -0.17062,0.0485 -0.33233,0.1088 -0.35935,0.13409 -0.0831,0.0778 -0.15829,0.0521 -0.30944,-0.10562 z m 1.18585,-0.71539 c 0.44889,-0.22524 0.83241,-0.51409 1.5028,-1.13182 0.55002,-0.50681 0.64625,-0.61798 0.62123,-0.71767 -0.0334,-0.13301 0.0465,-0.23948 0.76117,-1.01398 0.48486,-0.52547 0.79603,-0.92299 0.7225,-0.92299 -0.0255,0 -0.38238,0.29395 -0.79297,0.65323 -0.41059,0.35928 -0.95594,0.82204 -1.21188,1.02836 -0.25594,0.20632 -0.59355,0.5115 -0.75024,0.67817 -0.36383,0.38701 -1.31197,1.50584 -1.337,1.5777 -0.0248,0.0712 0.15036,0.0166 0.48439,-0.151 z m 4.28108,-3.45918 c 0.85985,-0.64647 1.48403,-1.35686 1.48403,-1.68901 0,-0.11837 -0.17365,-0.21544 -0.62046,-0.34686 -0.21329,-0.0627 -0.67863,-0.25314 -1.0341,-0.42314 -0.7304,-0.34929 -1.80609,-0.81546 -1.88168,-0.81546 -0.0276,0 0.14879,0.20359 0.3919,0.45242 0.50709,0.51901 0.87004,1.05056 1.00848,1.47696 l 0.0961,0.29584 0.33481,-0.28461 c 0.40034,-0.34033 0.56462,-0.37054 0.65876,-0.12114 0.0573,0.15179 0.046,0.19497 -0.14135,0.54238 -0.11198,0.2076 -0.33848,0.55743 -0.50334,0.77739 -0.35111,0.4685 -0.39296,0.53182 -0.35151,0.53182 0.017,0 0.26829,-0.17846 0.5584,-0.39659 z"
@@ -763,12 +763,12 @@
      xml:space="preserve"
      transform="scale(0.75)"
      id="text194"
-     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect194);fill:#000000;fill-opacity:1" />
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect194);display:inline;fill:#000000;fill-opacity:1" />
   <text
      xml:space="preserve"
      transform="matrix(0.75,0,0,0.75,107.46674,-41.67952)"
      id="text195"
-     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect195);fill:#000000;fill-opacity:1"><tspan
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect195);display:inline;fill:#000000;fill-opacity:1"><tspan
        x="124.59961"
        y="584.82583"
        id="tspan1">Current collector</tspan></text>
@@ -776,7 +776,7 @@
      xml:space="preserve"
      transform="matrix(0.75,0,0,0.75,57.991693,-102.66324)"
      id="text196"
-     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect196);fill:#000000;fill-opacity:1"><tspan
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect196);display:inline;fill:#000000;fill-opacity:1"><tspan
        x="223.46094"
        y="622.26333"
        id="tspan2">Electrode</tspan></text>
@@ -784,7 +784,7 @@
      xml:space="preserve"
      transform="matrix(0.75,0,0,0.75,85.405722,-136.88432)"
      id="text197"
-     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect197);fill:#000000;fill-opacity:1"><tspan
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect197);display:inline;fill:#000000;fill-opacity:1"><tspan
        x="162.62305"
        y="581.90005"
        id="tspan3">Inorganic layer</tspan></text>
@@ -792,7 +792,7 @@
      xml:space="preserve"
      transform="matrix(0.75,0,0,0.75,79.663057,-182.07369)"
      id="text198"
-     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect198);fill:#000000;fill-opacity:1"><tspan
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect198);display:inline;fill:#000000;fill-opacity:1"><tspan
        x="177.24805"
        y="593.59927"
        id="tspan4">Organic layer</tspan></text>
@@ -800,7 +800,7 @@
      xml:space="preserve"
      transform="matrix(0.75,0,0,0.75,113.63153,-254.90317)"
      id="text199"
-     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect200);fill:#000000;fill-opacity:1"><tspan
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect200);display:inline;fill:#000000;fill-opacity:1"><tspan
        x="145.6582"
        y="585.99575"
        id="tspan5">Electrolyte</tspan></text>
