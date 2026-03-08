@@ -31,6 +31,18 @@ def crossref_to_bibtex(meta):
         except Exception:
             return ""
 
+    # Pages: Crossref uses several possible fields
+    pages = (
+        meta.get("page")
+        or meta.get("pages")
+        or (
+            f"{meta.get('first-page')}-{meta.get('last-page')}"
+            if meta.get("first-page") and meta.get("last-page")
+            else None
+        )
+        or ""
+    )
+
     entry = {
         "ENTRYTYPE": str(meta.get("type", "article")),
         "ID": str(meta.get("DOI", "unknown")).replace("/", "_"),
@@ -38,6 +50,9 @@ def crossref_to_bibtex(meta):
         "year": safe_get_year(meta),
         "doi": str(meta.get("DOI", "")),
         "journal": str(safe_get_list(meta, "container-title")),
+        "volume": str(meta.get("volume", "")),
+        "number": str(meta.get("issue", "")),  # BibTeX uses "number" for issue
+        "pages": str(pages),
     }
 
     # Authors
