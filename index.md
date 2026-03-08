@@ -1,4 +1,4 @@
 ---
 layout: none
-redirect_to: /research.html
+redirect_to: /research.md
 ---
