@@ -1,20 +1,24 @@
-import bibtexparser
-from bibtexparser.bparser import BibTexParser
-from bibtexparser.customization import homogenize_latex_encoding
+from pybtex.database import parse_file
 
 def acs_format(entry):
-    authors = entry.get("author", "").split(" and ")
+    authors = []
+    for person in entry.persons.get("author", []):
+        authors.append(" ".join(person.first_names + person.last_names))
+
     authors_formatted = ", ".join(authors)
 
-    title = entry.get("title", "")
-    journal = entry.get("journal", "")
-    year = entry.get("year", "")
-    doi = entry.get("doi", "")
+    title = entry.fields.get("title", "")
+    journal = entry.fields.get("journal", "")
+    year = entry.fields.get("year", "")
+    doi = entry.fields.get("doi", "")
 
-    parts = [
-        f"**{authors_formatted}**.",
-        f"*{title}*.",
-    ]
+    parts = []
+
+    if authors_formatted:
+        parts.append(f"**{authors_formatted}**.")
+
+    if title:
+        parts.append(f"*{title}*.")
 
     if journal:
         parts.append(f"_{journal}_")
@@ -28,22 +32,13 @@ def acs_format(entry):
     return " ".join(parts)
 
 def main():
-    with open("publications.bib") as bibtex_file:
-        parser = BibTexParser(common_strings=True)
-        parser.customization = homogenize_latex_encoding
-        parser.ignore_nonstandard_types = False  # ← this is the important line
-        bib = bibtexparser.load(bibtex_file, parser=parser)
+    bib = parse_file("publications.bib")
 
-    entries = sorted(
-        bib.entries,
-        key=lambda x: str(x.get("year", "0")),
-        reverse=True,
-    )
+    # Flatten entries
+    entries = list(bib.entries.values())
 
-    print(f"Loaded {len(bib.entries)} entries from publications.bib")
-    for e in bib.entries:
-        print(" -", e.get("ID"))
-
+    # Sort by year descending
+    entries.sort(key=lambda e: e.fields.get("year", "0"), reverse=True)
 
     lines = ["# Publications", ""]
 
