@@ -19,43 +19,68 @@ def fetch_crossref_metadata(doi):
     return r.json()["message"]
 
 def crossref_to_bibtex(meta):
-    # Safe helpers
+    """Convert Crossref metadata into a clean BibTeX entry."""
+
+    # --- Safe helpers ---------------------------------------------------------
+
     def safe_get_list(meta, key):
+        """Return first element of a list field, or empty string."""
         val = meta.get(key, [])
         return val[0] if isinstance(val, list) and val else ""
 
     def safe_get_year(meta):
+        """Extract publication year safely."""
         try:
             year = meta.get("issued", {}).get("date-parts", [[None]])[0][0]
             return str(year) if year else ""
         except Exception:
             return ""
 
-    # Pages: Crossref uses several possible fields
-    pages = (
-        meta.get("page")
-        or meta.get("pages")
-        or (
-            f"{meta.get('first-page')}-{meta.get('last-page')}"
-            if meta.get("first-page") and meta.get("last-page")
-            else None
-        )
-        or ""
-    )
+    # --- Pages: Crossref uses many different formats --------------------------
+
+    pages = ""
+
+    # 1. Standard "page"
+    if "page" in meta:
+        pages = meta["page"]
+
+    # 2. Wiley-style "pages"
+    elif "pages" in meta:
+        pages = meta["pages"]
+
+    # 3. Elsevier-style first/last page
+    elif meta.get("first-page") and meta.get("last-page"):
+        pages = f"{meta['first-page']}-{meta['last-page']}"
+
+    # 4. Nature/Springer/MDPI article numbers
+    elif "article-number" in meta:
+        pages = meta["article-number"]
+
+    # 5. Fallback
+    else:
+        pages = ""
+
+    # --- Build BibTeX entry ---------------------------------------------------
 
     entry = {
         "ENTRYTYPE": str(meta.get("type", "article")),
         "ID": str(meta.get("DOI", "unknown")).replace("/", "_"),
+
         "title": str(safe_get_list(meta, "title")),
+        "journal": str(safe_get_list(meta, "container-title")),
         "year": safe_get_year(meta),
         "doi": str(meta.get("DOI", "")),
-        "journal": str(safe_get_list(meta, "container-title")),
+
+        # Volume and issue
         "volume": str(meta.get("volume", "")),
         "number": str(meta.get("issue", "")),  # BibTeX uses "number" for issue
+
+        # Pages
         "pages": str(pages),
     }
 
-    # Authors
+    # --- Authors --------------------------------------------------------------
+
     authors = []
     for a in meta.get("author", []):
         parts = []
@@ -65,14 +90,17 @@ def crossref_to_bibtex(meta):
             parts.append(a["family"])
         if parts:
             authors.append(" ".join(parts))
+
     entry["author"] = " and ".join(authors)
 
-    # Ensure all fields are strings
+    # --- Ensure all fields are strings ----------------------------------------
+
     for k, v in entry.items():
         if not isinstance(v, str):
             entry[k] = str(v)
 
     return entry
+
 
 def main():
     print("Fetching ORCID works…")
