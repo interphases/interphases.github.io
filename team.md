@@ -12,7 +12,6 @@ title: Our Team
     <img class="member-photo" src="images/team/erik-berg.jpg" alt="Erik Berg">
     <h3>Erik Berg</h3>
     <p class="role">Principal Investigator</p>
-    <p class="bio">Electrode–electrolyte interphases, electrolyte formulation, self-driving laboratories</p>
   </div>
 </div>
 
@@ -22,7 +21,6 @@ title: Our Team
   <div class="member-card">
     <img class="member-photo" src="images/team/placeholder.jpg" alt="">
     <h3>Name</h3>
-    <p class="bio">Research topic</p>
   </div>
 </div>
 
@@ -32,7 +30,6 @@ title: Our Team
   <div class="member-card">
     <img class="member-photo" src="images/team/placeholder.jpg" alt="">
     <h3>Name</h3>
-    <p class="bio">Research topic</p>
   </div>
 </div>
 
@@ -42,6 +39,5 @@ title: Our Team
   <div class="member-card">
     <img class="member-photo" src="images/team/placeholder.jpg" alt="">
     <h3>Name</h3>
-    <p class="bio">Research topic</p>
   </div>
 </div>

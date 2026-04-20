@@ -11,9 +11,9 @@ title: Home
   <p>Electrode–electrolyte interphases are nanometer-thin layers that form at the boundary between battery electrodes and the liquid electrolyte. Despite their small size, they govern ion transport, chemical stability, and ultimately the lifetime and safety of rechargeable batteries. Our group engineers these interphases across three battery chemistries and develops the tools to study and optimize them.</p>
 </div>
 
-## Batteries
+## Electrochemical Energy storage
 
-**Lithium-ion batteries** remain the dominant technology for portable electronics and electric vehicles. We investigate how electrolyte composition shapes the solid electrolyte interphase (SEI) on both anodes and cathodes, with the goal of extending cycle life and enabling higher-energy electrode materials.
+**Lithium-ion batteries** remain the dominant technology for portable electronics and electric vehicles. We investigate how electrolyte composition shapes the solid electrolyte interphase (SEI) with the goal of extending cycle life and enabling higher-energy electrode materials.
 
 **Zinc-ion batteries** offer a low-cost, water-based alternative with inherent safety advantages. We study interphase formation in aqueous zinc electrolytes, where managing side reactions such as hydrogen evolution and zinc hydroxide precipitation is critical to achieving reversible cycling.
 
@@ -23,7 +23,7 @@ Across all three chemistries, we work on metal plating and stripping electrodes 
 
 ## Methodology
 
-**Electrolyte formulation** is central to our work. We design and synthesize electrolytes — varying solvent mixtures, salt concentrations, and additives — to tune interphase chemistry and improve electrochemical stability.
+**Electrolyte formulation** is central to our work. We design and formulate electrolytes to tune interphase chemistry and improve electrochemical stability.
 
 **Online Electrochemical Mass Spectrometry (OEMS)** lets us track gas evolution in real time during battery operation, directly identifying decomposition pathways and linking electrolyte chemistry to interphase formation mechanisms.
 
