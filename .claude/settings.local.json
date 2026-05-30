@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python NAvierStokesPython.py)",
+      "Bash(python -c \"import tkinter; print\\('tkinter ok'\\); import matplotlib; print\\('matplotlib', matplotlib.__version__\\)\")",
+      "Bash(python -c ' *)",
+      "Bash(python qcm_flow_gui.py)",
+      "WebSearch",
+      "WebFetch(domain:pmc.ncbi.nlm.nih.gov)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(python -c \"import numpy, scipy, matplotlib; print\\('deps ok'\\)\")",
+      "Bash(python validate_lbm_vs_stokes.py)",
+      "Bash(pip install *)",
+      "Bash(start pythonw *)",
+      "Bash(wmic process *)",
+      "Bash(findstr validate_lbm_substrate)",
+      "Read(//c/Users/erija234/Documents/Code/PyBamm/**)",
+      "Bash(python -c \"import pybamm; print\\(dir\\(pybamm\\)\\)\")",
+      "Bash(pip show *)",
+      "Bash(python -c \"import sys; print\\(sys.executable\\)\")",
+      "Bash(pip list *)",
+      "Bash(findstr -i \"pybamm\\\\|scipy\\\\|numpy\\\\|matplotlib\")",
+      "Bash(python cv_simulation.py)",
+      "Bash(python EIS_simulations.py)"
+    ]
+  }
+}

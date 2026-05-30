@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 220" role="img" aria-label="Zinc deposition in an aqueous electrolyte with hydrogen bubbles evolving">
+  <style>
+    .lbl { font-family: 'Inter', sans-serif; fill: #1a1a1a; }
+    .lbl-sm { font-family: 'Inter', sans-serif; fill: #5a86a0; }
+  </style>
+  <!-- aqueous electrolyte -->
+  <rect x="0" y="0" width="360" height="220" fill="#dff0f6"/>
+  <!-- water ripples -->
+  <path d="M0 36 q20 -8 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0" fill="none" stroke="#bfe3ef" stroke-width="3"/>
+  <path d="M0 52 q20 -8 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0" fill="none" stroke="#cfeaf2" stroke-width="3"/>
+  <!-- zinc electrode -->
+  <rect x="150" y="150" width="120" height="50" rx="5" fill="#9e97c5"/>
+  <text x="210" y="180" text-anchor="middle" class="lbl" font-size="13" font-weight="700" fill="#ffffff">Zn</text>
+  <!-- deposited zinc nuclei -->
+  <path d="M165 150 l10 -16 l10 16 z" fill="#b6afd6"/>
+  <path d="M195 150 l13 -22 l13 22 z" fill="#b6afd6"/>
+  <path d="M232 150 l9 -14 l9 14 z" fill="#b6afd6"/>
+  <!-- Zn2+ ions arriving -->
+  <circle cx="120" cy="90" r="12" fill="#9e97c5" stroke="#7d75ad" stroke-width="1.5"/>
+  <text x="120" y="94" text-anchor="middle" class="lbl" font-size="9" font-weight="700" fill="#fff">Zn2+</text>
+  <circle cx="250" cy="80" r="12" fill="#9e97c5" stroke="#7d75ad" stroke-width="1.5"/>
+  <text x="250" y="84" text-anchor="middle" class="lbl" font-size="9" font-weight="700" fill="#fff">Zn2+</text>
+  <path d="M122 104 V134" fill="none" stroke="#7d75ad" stroke-width="2" stroke-dasharray="5 4"/>
+  <path d="M122 134 l-4 -8 h8 z" fill="#7d75ad"/>
+  <!-- H2 bubbles evolving -->
+  <g fill="none" stroke="#5a86a0" stroke-width="1.5">
+    <circle cx="300" cy="150" r="6"/>
+    <circle cx="312" cy="120" r="8"/>
+    <circle cx="296" cy="96" r="5"/>
+    <circle cx="308" cy="72" r="7"/>
+  </g>
+  <text x="318" y="56" text-anchor="middle" class="lbl-sm" font-size="11" font-weight="700">H₂</text>
+  <text x="210" y="216" text-anchor="middle" class="lbl-sm" font-size="11">zinc plating / stripping</text>
+</svg>

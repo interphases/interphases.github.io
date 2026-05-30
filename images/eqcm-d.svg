@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 220" role="img" aria-label="A quartz crystal with a growing interphase film and a damped resonance signal">
+  <style>
+    .lbl { font-family: 'Inter', sans-serif; fill: #1a1a1a; }
+    .lbl-sm { font-family: 'Inter', sans-serif; fill: #6a9aad; }
+  </style>
+  <rect x="0" y="0" width="360" height="220" fill="#eef6fb"/>
+  <!-- quartz crystal stack (side view) -->
+  <ellipse cx="92" cy="64" rx="62" ry="16" fill="#f7e797" stroke="#d9c65a" stroke-width="1.5"/>
+  <text x="92" y="42" text-anchor="middle" class="lbl-sm" font-size="10" font-weight="700">Au electrode</text>
+  <rect x="30" y="64" width="124" height="40" fill="#dfe7ef" stroke="#9aa6b2" stroke-width="1.5"/>
+  <ellipse cx="92" cy="104" rx="62" ry="16" fill="#cbd6e0" stroke="#9aa6b2" stroke-width="1.5"/>
+  <text x="92" y="128" text-anchor="middle" class="lbl-sm" font-size="10">quartz</text>
+  <!-- growing interphase film -->
+  <ellipse cx="92" cy="56" rx="62" ry="14" fill="#c6dea0" opacity="0.85"/>
+  <ellipse cx="92" cy="50" rx="56" ry="12" fill="#bee3cc" opacity="0.85"/>
+  <text x="92" y="158" text-anchor="middle" class="lbl-sm" font-size="11">mass + viscoelastic film</text>
+  <!-- damped resonance -->
+  <path d="M196 110 H346" fill="none" stroke="#9aa6b2" stroke-width="1.5"/>
+  <path d="M204 110
+           q8 -52 16 0 q8 44 16 0 q8 -36 16 0 q8 30 16 0
+           q8 -24 16 0 q8 18 16 0 q8 -12 16 0 q8 8 16 0"
+        fill="none" stroke="#0070f3" stroke-width="2.5"/>
+  <text x="271" y="46" text-anchor="middle" class="lbl" font-size="11" font-weight="700">damped resonance</text>
+  <text x="271" y="200" text-anchor="middle" class="lbl-sm" font-size="9">frequency &amp; dissipation</text>
+</svg>

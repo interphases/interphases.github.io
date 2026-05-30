@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 220" role="img" aria-label="A closed loop connecting formulation, measurement and machine-learning prediction">
+  <style>
+    .lbl { font-family: 'Inter', sans-serif; fill: #ffffff; }
+    .lbl-d { font-family: 'Inter', sans-serif; fill: #1a1a1a; }
+  </style>
+  <rect x="0" y="0" width="360" height="220" fill="#f2f8f0"/>
+  <!-- nodes -->
+  <circle cx="180" cy="48" r="36" fill="#c6dea0"/>
+  <text x="180" y="46" text-anchor="middle" class="lbl-d" font-size="12" font-weight="700">Formulate</text>
+  <text x="180" y="62" text-anchor="middle" class="lbl-d" font-size="9">electrolyte</text>
+  <circle cx="282" cy="150" r="36" fill="#6a9aad"/>
+  <text x="282" y="148" text-anchor="middle" class="lbl" font-size="12" font-weight="700">Measure</text>
+  <text x="282" y="164" text-anchor="middle" class="lbl" font-size="9">OEMS · EQCM</text>
+  <circle cx="78" cy="150" r="36" fill="#9e97c5"/>
+  <text x="78" y="148" text-anchor="middle" class="lbl" font-size="12" font-weight="700">Predict</text>
+  <text x="78" y="164" text-anchor="middle" class="lbl" font-size="9">ML model</text>
+  <!-- loop arrows -->
+  <path d="M212 66 q44 22 50 56" fill="none" stroke="#0070f3" stroke-width="2.5"/>
+  <path d="M262 122 l1 -11 l-9 6 z" fill="#0070f3"/>
+  <path d="M246 168 q-66 26 -132 0" fill="none" stroke="#0070f3" stroke-width="2.5"/>
+  <path d="M114 168 l11 -2 l-7 -8 z" fill="#0070f3"/>
+  <path d="M98 122 q22 -34 50 -56" fill="none" stroke="#0070f3" stroke-width="2.5"/>
+  <path d="M148 66 l-10 3 l8 6 z" fill="#0070f3"/>
+  <text x="180" y="124" text-anchor="middle" class="lbl-d" font-size="10" font-weight="700" opacity="0.65">closed loop</text>
+</svg>
