@@ -9,7 +9,9 @@ title: Our Team
 
 <div class="team-grid" style="grid-template-columns: 1fr; max-width: 320px;">
   <div class="member-card">
-    <img class="member-photo" src="images/team/erik-berg.jpg" alt="Erik Berg">
+    <a href="https://www.uu.se/kontakt-och-organisation/personal?query=N8-169" target="_blank" rel="noopener">
+      <img class="member-photo" src="images/team/erik-berg.jpg" alt="Erik Berg">
+    </a>
     <h3>Erik Berg</h3>
     <p class="role">Principal Investigator</p>
   </div>
