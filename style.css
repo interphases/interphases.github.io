@@ -170,6 +170,12 @@ p { margin-bottom: 1.5rem; }
     border-radius: 8px;
     box-shadow: 0 1px 14px rgba(0, 0, 0, 0.06);
 }
+
+/* Full-bleed raster images read larger than the schematics — rein them in */
+.feature-media img.shrink {
+    width: 78%;
+    margin: 0 auto;
+}
 .feature-caption {
     font-size: 0.8rem;
     color: var(--secondary);
