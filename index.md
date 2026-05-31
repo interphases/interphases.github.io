@@ -26,7 +26,7 @@ title: Home
 
 <div class="feature flip">
   <figure class="feature-media">
-    {% include_relative images/zinc-ion.svg %}
+    <img class="shrink" src="images/zinc-ion.png" alt="Zinc plating with hydrogen bubbles evolving in an aqueous electrolyte">
     <figcaption class="feature-caption">In aqueous zinc electrolytes, reversible plating competes with hydrogen evolution and hydroxide precipitation.</figcaption>
   </figure>
   <div class="feature-body">
