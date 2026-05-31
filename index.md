@@ -8,7 +8,7 @@ title: Home
   <div class="intro-figure" style="float: left; margin: 0 1.75em 0.5em 0;">
     {% include_relative images/SEI.svg %}
   </div>
-  <p class="lead">Electrode–electrolyte interphases are nanometer-thin layers that form at the boundary between battery electrodes and the liquid electrolyte. Despite their small size, they govern ion transport, chemical stability, and ultimately the lifetime and safety of rechargeable batteries. Our group engineers these interphases across three battery chemistries and develops the tools to study and optimize them.</p>
+  <p class="lead">Electrode–electrolyte interphases are nanometer-thin layers that form at the boundary between battery electrodes and the liquid electrolyte. Despite their small size, they govern ion transport, chemical stability, and ultimately the lifetime and safety of rechargeable batteries. Our group engineers these interphases across several battery chemistries and develops the tools to study and optimize them. These chemistries span lithium-ion, aqueous zinc, and emerging iron systems, united by a focus on the metal plating and stripping reactions that decide capacity and reversibility. We tune electrolyte composition to steer how interphases nucleate and conduct ions, and we watch them form operando — combining real-time gas analysis, nanogram-scale mass measurements, and self-driving laboratories that pair automated experiments with machine learning to navigate vast compositional spaces.</p>
 </div>
 
 <p class="pullquote">A layer only nanometers thick decides whether a battery lasts a thousand cycles or fails in ten.</p>
