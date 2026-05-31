@@ -33,23 +33,20 @@ title: Home
   <p>A low-cost, water-based alternative with inherent safety advantages. We study interphase formation in aqueous zinc electrolytes, where managing side reactions such as hydrogen evolution and zinc hydroxide precipitation is critical to achieving reversible cycling. Built around an abundant zinc-metal anode and a non-flammable aqueous electrolyte, these cells are well suited to stationary and grid-scale storage, where cost and safety outweigh energy density. The same water that makes them safe can also be reduced at the anode to evolve hydrogen, raising the local pH and precipitating passivating zinc hydroxide. By tailoring electrolyte composition we suppress these side reactions and steer zinc plating toward high, reversible Coulombic efficiency. On the cathode side, manganese dioxide (MnO₂) is among the most studied hosts, but it brings its own difficulties. During discharge, reduction of Mn⁴⁺ generates Jahn–Teller-active Mn³⁺ that disproportionates and dissolves manganese into the electrolyte, gradually eroding the active material and fading capacity. Repeated (de)insertion of Zn²⁺ — often accompanied by competing H⁺ insertion and the growth of zinc-hydroxide byproducts — drives structural rearrangement and an intricate, still-debated charge-storage mechanism. Combined with the sluggish solid-state diffusion of divalent Zn²⁺, these effects limit rate capability and long-term cycling stability.</p>
 </div>
 
-<div class="feature">
-  <figure class="feature-media">
-    {% include_relative images/iron-ion.svg %}
+<div style="overflow: hidden;">
+  <figure class="intro-figure" style="float: left; width: 300px; margin: 0.4em 1.75em 0.5em 0;">
+    <img src="images/iron-ion.png" alt="The Fe2+/Fe3+ redox couple cycling charge for grid-scale storage">
     <figcaption class="feature-caption">The Fe²⁺/Fe³⁺ redox couple cycles charge — an earth-abundant route to grid-scale storage.</figcaption>
   </figure>
-  <div class="feature-body">
-    <h3>Iron-ion batteries</h3>
-    <p>An emerging, earth-abundant chemistry with potential for grid-scale storage. We explore the electrochemistry of iron redox couples and the interphases that must be stabilized to make these systems practically viable. Built on cheap, non-toxic iron and aqueous Fe²⁺ electrolytes, these cells are attractive for stationary storage, but the iron anode is difficult to cycle reversibly. Because the Fe²⁺/Fe plating potential sits close to that of water reduction, hydrogen evolution competes directly with iron deposition, lowering Coulombic efficiency and driving self-discharge, while iron hydroxide and oxide films passivate the surface and uneven deposition roughens the electrode over repeated cycles. We address these losses through electrolyte formulation and interphase engineering — pH-buffering and additives that suppress hydrogen evolution and promote uniform plating, together with protective surface layers that conduct Fe²⁺ while blocking parasitic side reactions. On the cathode side, the divalent Fe²⁺ ion diffuses sluggishly through most hosts, so we study open-framework materials such as vanadium oxides and phosphates that accommodate reversible Fe²⁺ (de)insertion and work to stabilize the iron redox against dissolution and structural fatigue. Together, these strategies aim to convert iron's abundance and safety into durable, long-cycling storage.
-    </p>
-  </div>
+  <h3>Iron-ion batteries</h3>
+  <p>An emerging, earth-abundant chemistry with potential for grid-scale storage. We explore the electrochemistry of iron redox couples and the interphases that must be stabilized to make these systems practically viable. Built on cheap, non-toxic iron and aqueous Fe²⁺ electrolytes, these cells are attractive for stationary storage, but the iron anode is difficult to cycle reversibly. Because the Fe²⁺/Fe plating potential sits close to that of water reduction, hydrogen evolution competes directly with iron deposition, lowering Coulombic efficiency and driving self-discharge, while iron hydroxide and oxide films passivate the surface and uneven deposition roughens the electrode over repeated cycles. We address these losses through electrolyte formulation and interphase engineering — pH-buffering and additives that suppress hydrogen evolution and promote uniform plating, together with protective surface layers that conduct Fe²⁺ while blocking parasitic side reactions. On the cathode side, the divalent Fe²⁺ ion diffuses sluggishly through most hosts, so we study open-framework materials such as vanadium oxides and phosphates that accommodate reversible Fe²⁺ (de)insertion and work to stabilize the iron redox against dissolution and structural fatigue. Together, these strategies aim to convert iron's abundance and safety into durable, long-cycling storage.</p>
 </div>
 
 Across all three chemistries, we work on **metal plating and stripping electrodes** — the processes by which metal ions deposit onto and dissolve from an electrode surface. Controlling nucleation, morphology, and Coulombic efficiency during these processes is essential for high-capacity, dendrite-free energy storage.
 
 ## Methodology
 
-**Electrolyte formulation** is central to our work. We design and formulate electrolytes to tune interphase chemistry and improve electrochemical stability — the starting point that feeds every measurement and model below.
+**Electrolyte exploration and exploitation** is central to our work. We design and formulate electrolytes to tune interphase chemistry and improve electrochemical stability — the starting point that feeds every measurement and model below.
 
 <div class="feature">
   <figure class="feature-media">
