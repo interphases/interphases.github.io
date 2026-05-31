@@ -133,7 +133,7 @@ p { margin-bottom: 1.5rem; }
     font-size: 3.4rem;
     line-height: 0.78;
     padding: 0.05em 0.1em 0 0;
-    color: var(--accent);
+    color: var(--text);
 }
 
 /* Pull quote */
@@ -142,7 +142,7 @@ p { margin-bottom: 1.5rem; }
     font-weight: 700;
     font-size: 1.45rem;
     line-height: 1.4;
-    color: var(--accent);
+    color: var(--text);
     border-left: 3px solid var(--accent);
     padding-left: 1.3rem;
     margin: 2.75rem 0;
@@ -162,7 +162,8 @@ p { margin-bottom: 1.5rem; }
     flex: 0 0 44%;
     margin: 0;
 }
-.feature-media svg {
+.feature-media svg,
+.feature-media img {
     width: 100%;
     height: auto;
     display: block;

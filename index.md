@@ -17,7 +17,8 @@ title: Home
 
 <div class="feature">
   <figure class="feature-media">
-    {% include_relative images/lithium-ion.svg %}
+    <img src="images/lithium-ion.png" alt="Li+ shuttling across the SEI between anode and cathode">
+
     <figcaption class="feature-caption">Li⁺ shuttles across the SEI between anode and cathode; the interphase's chemistry sets how efficiently it moves.</figcaption>
   </figure>
   <div class="feature-body">
