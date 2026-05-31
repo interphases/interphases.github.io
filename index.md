@@ -31,7 +31,8 @@ title: Home
   </figure>
   <div class="feature-body">
     <h3>Zinc-ion batteries</h3>
-    <p>A low-cost, water-based alternative with inherent safety advantages. We study interphase formation in aqueous zinc electrolytes, where managing side reactions such as hydrogen evolution and zinc hydroxide precipitation is critical to achieving reversible cycling.</p>
+    <p>A low-cost, water-based alternative with inherent safety advantages. We study interphase formation in aqueous zinc electrolytes, where managing side reactions such as hydrogen evolution and zinc hydroxide precipitation is critical to achieving reversible cycling. Built around an abundant zinc-metal anode and a non-flammable aqueous electrolyte, these cells are well suited to stationary and grid-scale storage, where cost and safety outweigh energy density. The same water that makes them safe can also be reduced at the anode to evolve hydrogen, raising the local pH and precipitating passivating zinc hydroxide. By tailoring electrolyte composition we suppress these side reactions and steer zinc plating toward high, reversible Coulombic efficiency.
+    </p>
   </div>
 </div>
 
