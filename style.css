@@ -140,7 +140,7 @@ p { margin-bottom: 1.5rem; }
 .pullquote {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    font-size: 1.45rem;
+    font-size: 1.15rem;
     line-height: 1.4;
     color: var(--text);
     border-left: 3px solid var(--accent);

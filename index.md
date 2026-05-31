@@ -23,7 +23,8 @@ title: Home
   </figure>
   <div class="feature-body">
     <h3>Lithium-ion batteries</h3>
-    <p>The dominant technology for portable electronics and electric vehicles. We investigate how electrolyte composition shapes the solid electrolyte interphase (SEI), with the goal of extending cycle life and enabling higher-energy electrode materials.</p>
+    <p>The dominant technology for portable electronics and electric vehicles. We investigate how electrolyte composition shapes the solid electrolyte interphase (SEI), with the goal of extending cycle life and enabling higher-energy electrode materials. Formed as the electrolyte reduces at the anode, the SEI must conduct Li⁺ while blocking further decomposition, and its stability largely sets how a cell ages: a uniform, mechanically robust interphase preserves capacity over thousands of cycles, whereas an unstable one drives continuous lithium loss and fade. The SEI also governs fast charging — its ionic conductivity and resistance to lithium plating determine how quickly the anode can be charged without metallic lithium depositing on its surface and compromising safety.
+    </p>
   </div>
 </div>
 
