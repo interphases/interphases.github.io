@@ -24,16 +24,13 @@ title: Home
   <p>The dominant technology for portable electronics and electric vehicles. We investigate how electrolyte composition shapes the solid electrolyte interphase (SEI), with the goal of extending cycle life and enabling higher-energy electrode materials. Formed as the electrolyte reduces at the anode, the SEI must conduct Li⁺ while blocking further decomposition, and its stability largely sets how a cell ages: a uniform, mechanically robust interphase preserves capacity over thousands of cycles, whereas an unstable one drives continuous lithium loss and fade. The SEI also governs fast charging — its ionic conductivity and resistance to lithium plating determine how quickly the anode can be charged without metallic lithium depositing on its surface and compromising safety.</p>
 </div>
 
-<div class="feature flip">
-  <figure class="feature-media">
-    <img class="shrink" src="images/zinc-ion.png" alt="Zinc plating with hydrogen bubbles evolving in an aqueous electrolyte">
+<div style="overflow: hidden;">
+  <figure class="intro-figure" style="float: right; width: 300px; margin: 0.4em 0 0.5em 1.75em;">
+    <img src="images/zinc-ion.png" alt="Zinc plating with hydrogen bubbles evolving in an aqueous electrolyte">
     <figcaption class="feature-caption">In aqueous zinc electrolytes, reversible plating competes with hydrogen evolution and hydroxide precipitation.</figcaption>
   </figure>
-  <div class="feature-body">
-    <h3>Zinc-ion batteries</h3>
-    <p>A low-cost, water-based alternative with inherent safety advantages. We study interphase formation in aqueous zinc electrolytes, where managing side reactions such as hydrogen evolution and zinc hydroxide precipitation is critical to achieving reversible cycling. Built around an abundant zinc-metal anode and a non-flammable aqueous electrolyte, these cells are well suited to stationary and grid-scale storage, where cost and safety outweigh energy density. The same water that makes them safe can also be reduced at the anode to evolve hydrogen, raising the local pH and precipitating passivating zinc hydroxide. By tailoring electrolyte composition we suppress these side reactions and steer zinc plating toward high, reversible Coulombic efficiency.
-    </p>
-  </div>
+  <h3>Zinc-ion batteries</h3>
+  <p>A low-cost, water-based alternative with inherent safety advantages. We study interphase formation in aqueous zinc electrolytes, where managing side reactions such as hydrogen evolution and zinc hydroxide precipitation is critical to achieving reversible cycling. Built around an abundant zinc-metal anode and a non-flammable aqueous electrolyte, these cells are well suited to stationary and grid-scale storage, where cost and safety outweigh energy density. The same water that makes them safe can also be reduced at the anode to evolve hydrogen, raising the local pH and precipitating passivating zinc hydroxide. By tailoring electrolyte composition we suppress these side reactions and steer zinc plating toward high, reversible Coulombic efficiency.</p>
 </div>
 
 <div class="feature">
