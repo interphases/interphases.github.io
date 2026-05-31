@@ -40,7 +40,8 @@ title: Home
   </figure>
   <div class="feature-body">
     <h3>Iron-ion batteries</h3>
-    <p>An emerging, earth-abundant chemistry with potential for grid-scale storage. We explore the electrochemistry of iron redox couples and the interphases that must be stabilized to make these systems practically viable.</p>
+    <p>An emerging, earth-abundant chemistry with potential for grid-scale storage. We explore the electrochemistry of iron redox couples and the interphases that must be stabilized to make these systems practically viable. Built on cheap, non-toxic iron and aqueous Fe²⁺ electrolytes, these cells are attractive for stationary storage, but the iron anode is difficult to cycle reversibly. Because the Fe²⁺/Fe plating potential sits close to that of water reduction, hydrogen evolution competes directly with iron deposition, lowering Coulombic efficiency and driving self-discharge, while iron hydroxide and oxide films passivate the surface and uneven deposition roughens the electrode over repeated cycles. We address these losses through electrolyte formulation and interphase engineering — pH-buffering and additives that suppress hydrogen evolution and promote uniform plating, together with protective surface layers that conduct Fe²⁺ while blocking parasitic side reactions. On the cathode side, the divalent Fe²⁺ ion diffuses sluggishly through most hosts, so we study open-framework materials such as vanadium oxides and phosphates that accommodate reversible Fe²⁺ (de)insertion and work to stabilize the iron redox against dissolution and structural fatigue. Together, these strategies aim to convert iron's abundance and safety into durable, long-cycling storage.
+    </p>
   </div>
 </div>
 
